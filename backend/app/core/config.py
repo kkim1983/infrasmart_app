@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
-from typing import List
+from pydantic import field_validator
+from typing import List, Any
 
 
 class Settings(BaseSettings):
@@ -9,8 +10,25 @@ class Settings(BaseSettings):
     DEBUG: bool = True
 
     # CORS 허용 출처
-    # 환경변수: ALLOWED_ORIGINS=https://app.vercel.app,https://yourdomain.com
+    # 환경변수 형식 (둘 다 지원):
+    #   콤마 구분: ALLOWED_ORIGINS=https://a.com,https://b.com
+    #   JSON 배열: ALLOWED_ORIGINS=["https://a.com","https://b.com"]
     ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:8080"]
+
+    @field_validator('ALLOWED_ORIGINS', mode='before')
+    @classmethod
+    def parse_allowed_origins(cls, v: Any) -> List[str]:
+        if isinstance(v, list):
+            return v
+        if isinstance(v, str):
+            v = v.strip()
+            # JSON 배열 형식
+            if v.startswith('['):
+                import json
+                return json.loads(v)
+            # 콤마 구분 형식
+            return [x.strip() for x in v.split(',') if x.strip()]
+        return v
 
     # 데이터베이스
     POSTGRES_HOST: str = "localhost"
@@ -67,13 +85,6 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
-
-        @classmethod
-        def parse_env_var(cls, field_name: str, raw_val: str):
-            # 콤마 구분 문자열을 리스트로 파싱 (ALLOWED_ORIGINS 등)
-            if field_name == 'ALLOWED_ORIGINS':
-                return [x.strip() for x in raw_val.split(',') if x.strip()]
-            return raw_val
 
 
 settings = Settings()
