@@ -1,6 +1,14 @@
 from pydantic_settings import BaseSettings
-from pydantic import field_validator
-from typing import List, Any
+from typing import List
+
+
+def _parse_origins(v: str) -> List[str]:
+    """ALLOWED_ORIGINS 환경변수 파싱 (콤마 구분 또는 JSON 배열 형식 모두 지원)"""
+    v = v.strip()
+    if v.startswith('['):
+        import json
+        return json.loads(v)
+    return [x.strip() for x in v.split(',') if x.strip()]
 
 
 class Settings(BaseSettings):
@@ -9,26 +17,15 @@ class Settings(BaseSettings):
     APP_VERSION: str = "0.1.0"
     DEBUG: bool = True
 
-    # CORS 허용 출처
+    # CORS 허용 출처 (str로 저장 → allowed_origins 프로퍼티로 파싱)
     # 환경변수 형식 (둘 다 지원):
     #   콤마 구분: ALLOWED_ORIGINS=https://a.com,https://b.com
     #   JSON 배열: ALLOWED_ORIGINS=["https://a.com","https://b.com"]
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:8080"]
+    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:8080"
 
-    @field_validator('ALLOWED_ORIGINS', mode='before')
-    @classmethod
-    def parse_allowed_origins(cls, v: Any) -> List[str]:
-        if isinstance(v, list):
-            return v
-        if isinstance(v, str):
-            v = v.strip()
-            # JSON 배열 형식
-            if v.startswith('['):
-                import json
-                return json.loads(v)
-            # 콤마 구분 형식
-            return [x.strip() for x in v.split(',') if x.strip()]
-        return v
+    @property
+    def allowed_origins(self) -> List[str]:
+        return _parse_origins(self.ALLOWED_ORIGINS)
 
     # 데이터베이스
     POSTGRES_HOST: str = "localhost"
