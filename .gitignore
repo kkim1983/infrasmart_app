@@ -1,0 +1,66 @@
+# ===========================
+# InfraSmart - .gitignore
+# ===========================
+
+# Environment
+.env
+.env.local
+.env.production
+.env.prod
+*.env
+
+# Claude Code 설정 (로컬 전용)
+.claude/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+venv/
+.venv/
+env/
+pip-log.txt
+
+# FastAPI / Alembic
+backend/alembic/versions/*.pyc
+
+# Next.js (web/)
+web/.next/
+web/out/
+web/node_modules/
+
+# IDE
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+
+# Storage (local uploads)
+backend/uploads/
+backend/temp/
+
+# Test coverage
+coverage/
+.coverage
+htmlcov/
+
+# Secrets
+*.pem
+*.key
+*.cert
+*.p12

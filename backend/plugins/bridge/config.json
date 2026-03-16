@@ -1,0 +1,116 @@
+{
+  "facilityType": "BR",
+  "name": "교량",
+  "version": "1.0.0",
+
+  "damageCodes": [
+    {
+      "code": "C1", "name": "균열", "unit": "m",
+      "fields": ["length_m", "width_mm", "depth_mm"],
+      "description": "콘크리트 균열"
+    },
+    {
+      "code": "C2", "name": "균열(철근방향)", "unit": "m",
+      "fields": ["length_m", "width_mm"],
+      "description": "철근 방향 균열"
+    },
+    {
+      "code": "S1", "name": "박리·박락", "unit": "m²",
+      "fields": ["area_m2", "depth_mm"],
+      "description": "콘크리트 표면 박리"
+    },
+    {
+      "code": "E1", "name": "철근노출·부식", "unit": "m",
+      "fields": ["length_m", "corrosion_grade"],
+      "description": "철근 노출 및 부식"
+    },
+    {
+      "code": "L1", "name": "누수·백태", "unit": "m²",
+      "fields": ["area_m2", "flow_rate"],
+      "description": "누수 및 백태"
+    },
+    {
+      "code": "D1", "name": "변형·변위", "unit": "mm",
+      "fields": ["displacement_mm", "direction"],
+      "description": "구조물 변형"
+    },
+    {
+      "code": "J1", "name": "신축이음 손상", "unit": "개소",
+      "fields": ["count", "type"],
+      "description": "신축이음장치 손상"
+    },
+    {
+      "code": "W1", "name": "세굴", "unit": "m²",
+      "fields": ["area_m2", "depth_m"],
+      "description": "기초 세굴"
+    }
+  ],
+
+  "drawingTypes": [
+    {"code": "GD", "name": "일반도",   "coordinateSystem": "cartesian"},
+    {"code": "SD", "name": "구조도",   "coordinateSystem": "cartesian"},
+    {"code": "DD", "name": "상세도",   "coordinateSystem": "cartesian"},
+    {"code": "RD", "name": "배근도",   "coordinateSystem": "cartesian"},
+    {"code": "FD", "name": "기초도",   "coordinateSystem": "cartesian"},
+    {"code": "BD", "name": "교량받침도","coordinateSystem": "cartesian"}
+  ],
+
+  "locationSchema": {
+    "primary": "member_type",
+    "secondary": "member_no",
+    "tertiary": "span_no",
+    "memberTypes": [
+      {"code": "G",  "name": "거더"},
+      {"code": "SL", "name": "슬래브"},
+      {"code": "CP", "name": "교각"},
+      {"code": "AB", "name": "교대"},
+      {"code": "BG", "name": "교량받침"},
+      {"code": "EJ", "name": "신축이음"},
+      {"code": "WL", "name": "방호벽"},
+      {"code": "RL", "name": "난간"},
+      {"code": "FO", "name": "기초"}
+    ]
+  },
+
+  "severityGrades": [
+    {"grade": "A", "description": "문제 없음", "color": "#00B050"},
+    {"grade": "B", "description": "경미한 손상, 지속 관찰", "color": "#92D050"},
+    {"grade": "C", "description": "보통 손상, 보수 계획 필요", "color": "#FFFF00"},
+    {"grade": "D", "description": "심각한 손상, 조속한 보수", "color": "#FF9900"},
+    {"grade": "E", "description": "매우 심각, 즉각 조치 필요", "color": "#FF0000"}
+  ],
+
+  "geofence": {
+    "type": "circular",
+    "defaultRadiusMeters": 500,
+    "minRadiusMeters": 100,
+    "maxRadiusMeters": 2000
+  },
+
+  "cadLayers": {
+    "damage_new":      {"color": "RED",    "lineweight": 0.5, "description": "신규손상"},
+    "damage_exist":    {"color": "YELLOW", "lineweight": 0.35,"description": "기존손상"},
+    "damage_expanded": {"color": "ORANGE", "lineweight": 0.5, "description": "확대손상"},
+    "repaired":        {"color": "GREEN",  "lineweight": 0.25,"description": "보수완료"},
+    "note":            {"color": "WHITE",  "lineweight": 0.18,"description": "메모"}
+  },
+
+  "photoNumberFormat": "{facilityCode}-{location}-{damageAbbr}-{seq:03d}",
+  "damageAbbrMap": {
+    "C1": "CR", "C2": "CR",
+    "S1": "SP",
+    "E1": "RE",
+    "L1": "LK",
+    "D1": "DF",
+    "J1": "EJ",
+    "W1": "SC"
+  },
+
+  "excelSheets": [
+    "1. 현장개요",
+    "2. 손상현황표",
+    "3. 사진대지",
+    "4. 인증이력",
+    "5. GPS이력"
+  ]
+}

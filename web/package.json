@@ -1,0 +1,40 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3000 --hostname 0.0.0.0",
+    "build": "next build",
+    "start": "next start",
+    "build:cap": "CAPACITOR_BUILD=true NEXT_PUBLIC_API_URL=https://your-server.com/api/v1 next build && npx cap sync"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.2.0",
+    "@capacitor/camera": "^8.0.2",
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0",
+    "@capacitor/filesystem": "^8.1.2",
+    "@capacitor/geolocation": "^8.1.0",
+    "@capacitor/ios": "^8.2.0",
+    "@capacitor/preferences": "^8.0.1",
+    "@tanstack/react-query": "^5.90.21",
+    "axios": "^1.13.6",
+    "dexie": "^4.3.0",
+    "next": "16.1.6",
+    "pdfjs-dist": "^5.5.207",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-pdf": "^10.4.1",
+    "uuid": "^13.0.0",
+    "zustand": "^5.0.11"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/uuid": "^10.0.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

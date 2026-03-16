@@ -1,0 +1,34 @@
+{
+  "description": "교량 손상 상태등급 판정표 (도로교설계기준 기반)",
+  "version": "1.0.0",
+  "matrix": {
+    "C1": {
+      "description": "균열 상태등급",
+      "criteria": [
+        {"grade": "A", "condition": "width_mm < 0.1"},
+        {"grade": "B", "condition": "0.1 <= width_mm < 0.2 OR length_m < 1.0"},
+        {"grade": "C", "condition": "0.2 <= width_mm < 0.3 OR 1.0 <= length_m < 3.0"},
+        {"grade": "D", "condition": "0.3 <= width_mm < 0.5 OR 3.0 <= length_m < 5.0"},
+        {"grade": "E", "condition": "width_mm >= 0.5 OR length_m >= 5.0"}
+      ]
+    },
+    "S1": {
+      "description": "박리 상태등급",
+      "criteria": [
+        {"grade": "A", "condition": "area_m2 < 0.01"},
+        {"grade": "B", "condition": "0.01 <= area_m2 < 0.1"},
+        {"grade": "C", "condition": "0.1 <= area_m2 < 0.5"},
+        {"grade": "D", "condition": "0.5 <= area_m2 < 1.0"},
+        {"grade": "E", "condition": "area_m2 >= 1.0"}
+      ]
+    },
+    "E1": {
+      "description": "철근노출 상태등급",
+      "criteria": [
+        {"grade": "C", "condition": "noCorrosion"},
+        {"grade": "D", "condition": "lightCorrosion"},
+        {"grade": "E", "condition": "heavyCorrosion"}
+      ]
+    }
+  }
+}
