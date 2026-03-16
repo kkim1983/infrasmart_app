@@ -76,7 +76,7 @@ async function renderPdfPage(
   canvas.height = viewport.height;
 
   const ctx = canvas.getContext('2d')!;
-  await page.render({ canvasContext: ctx, viewport }).promise;
+  await page.render({ canvasContext: ctx, canvas, viewport }).promise;
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
