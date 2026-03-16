@@ -15,7 +15,8 @@ const nextConfig: NextConfig = {
 
   // 브라우저 dev 테스트 시 CORS 없이 백엔드 프록시 (Capacitor 빌드 시 불필요)
   ...(!isCapacitorBuild && {
-    turbopack: { root: __dirname },
+    // turbopack.root는 로컬 개발(dev) 시에만 설정 (Vercel 빌드 시 outputFileTracingRoot와 충돌)
+    ...(process.env.NODE_ENV === 'development' && { turbopack: { root: __dirname } }),
     // 로컬 기기(모바일/태블릿)에서 접근 허용
     allowedDevOrigins: ['127.0.0.1', '192.168.0.0/16', '10.0.0.0/8'],
     rewrites: async () => [
